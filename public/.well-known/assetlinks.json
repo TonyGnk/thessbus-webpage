@@ -1,0 +1,16 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "gr.thessbus",
+      "sha256_cert_fingerprints": [
+        "22:F1:56:C1:3F:22:F1:51:89:7B:C1:89:C5:B4:03:F6:DA:A1:8E:6C:A9:EC:54:54:93:2E:76:71:28:22:B3:52",
+        "21:F8:C5:F0:82:C4:E0:33:89:72:B5:9B:95:6C:3A:D2:B5:0B:48:C8:C8:75:49:64:57:92:3E:83:97:70:D5:93"
+      ]
+    }
+  }
+]

@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThessBus - Smart Thessaloniki Transportation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        // Prevent FOUC by setting theme immediately
+        (function() {
+            const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const html = document.documentElement;
+            if (isDark) {
+                html.style.setProperty('--bg-color', '#0a0a0a');
+                html.style.setProperty('--bg-secondary', '#1a1a1a');
+                html.style.setProperty('--text-color', '#ffffff');
+                html.style.setProperty('--text-secondary', '#a0a0a0');
+                html.style.setProperty('--accent-color', '#99CCFA');
+                html.style.setProperty('--accent-hover', '#7AB8F0');
+                html.style.setProperty('--card-bg', '#151515');
+                html.style.setProperty('--border-color', '#333333');
+                html.style.setProperty('--shadow', 'rgba(0, 0, 0, 0.5)');
+                html.style.setProperty('--feature-bg', '#202020');
+                html.style.setProperty('--gradient-start', '#0f1419');
+                html.style.setProperty('--gradient-end', '#1a202c');
+            } else {
+                html.style.setProperty('--bg-color', '#ffffff');
+                html.style.setProperty('--bg-secondary', '#f8fafc');
+                html.style.setProperty('--text-color', '#1e293b');
+                html.style.setProperty('--text-secondary', '#64748b');
+                html.style.setProperty('--accent-color', '#1671C5');
+                html.style.setProperty('--accent-hover', '#1460A8');
+                html.style.setProperty('--card-bg', '#ffffff');
+                html.style.setProperty('--border-color', '#e2e8f0');
+                html.style.setProperty('--shadow', 'rgba(0, 0, 0, 0.1)');
+                html.style.setProperty('--feature-bg', '#f1f5f9');
+                html.style.setProperty('--gradient-start', '#1671C5');
+                html.style.setProperty('--gradient-end', '#1460A8');
+            }
+        })();
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-color: #1e293b;
+            --text-secondary: #64748b;
+            --accent-color: #1671C5;
+            --accent-hover: #1460A8;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --feature-bg: #f1f5f9;
+            --gradient-start: #1671C5;
+            --gradient-end: #1460A8;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0a0a0a !important;
+                --bg-secondary: #1a1a1a !important;
+                --text-color: #ffffff !important;
+                --text-secondary: #a0a0a0 !important;
+                --accent-color: #99CCFA !important;
+                --accent-hover: #7AB8F0 !important;
+                --card-bg: #151515 !important;
+                --border-color: #333333 !important;
+                --shadow: rgba(0, 0, 0, 0.5) !important;
+                --feature-bg: #202020 !important;
+                --gradient-start: #0f1419 !important;
+                --gradient-end: #1a202c !important;
+            }
+        }
+
+        html {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            scroll-behavior: smooth;
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; 
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(22, 113, 197, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 20px rgba(22, 113, 197, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(22, 113, 197, 0);
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            @keyframes pulse {
+                0% {
+                    box-shadow: 0 0 0 0 rgba(153, 204, 250, 0.7);
+                }
+                70% {
+                    box-shadow: 0 0 0 20px rgba(153, 204, 250, 0);
+                }
+                100% {
+                    box-shadow: 0 0 0 0 rgba(153, 204, 250, 0);
+                }
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            background-attachment: fixed;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            padding: 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            min-width: 160px;
+            justify-content: center;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.8);
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Language Toggle */
+        .language-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            color: white;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .language-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 768px) {
+            .language-toggle {
+                top: 1rem;
+                right: 1rem;
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            background: var(--bg-secondary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features h2 {
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .features-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 40px var(--shadow);
+            transition: all 0.3s ease;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .feature-card:nth-child(2) {
+            animation-delay: -2s;
+        }
+
+        .feature-card:nth-child(3) {
+            animation-delay: -4s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px var(--shadow);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Download Section */
+        .download {
+            padding: 6rem 2rem;
+            background: var(--bg-color);
+            text-align: center;
+        }
+
+        .download h2 {
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .download-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1.5rem;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            min-width: 180px;
+            justify-content: flex-start;
+        }
+
+        .download-btn.google-play {
+            background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
+            box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
+        }
+
+        .download-btn.google-play:hover {
+            background: linear-gradient(135deg, #1557b0 0%, #3367d6 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 115, 232, 0.4);
+        }
+
+        .download-btn.app-store {
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .download-btn.app-store:hover {
+            background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .download-btn-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .download-btn-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.2;
+        }
+
+        .download-btn-small {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .download-btn-large {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .privacy-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1rem;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .privacy-link:hover {
+            border-bottom-color: var(--text-secondary);
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 280px;
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .features {
+                padding: 4rem 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .feature-card {
+                padding: 2rem;
+            }
+
+            .download {
+                padding: 4rem 1rem;
+            }
+
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        #path-info { 
+            margin-top: 20px; 
+            font-style: italic; 
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="language-toggle" onclick="toggleLanguage()">
+        🌐 <span id="lang-text">EL</span>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 data-en="ThessBus" data-el="ThessBus">ThessBus</h1>
+            <p class="hero-subtitle" data-en="Your smart companion for navigating Thessaloniki's buses with real-time tracking, offline maps, and intelligent notifications" data-el="Ο έξυπνος σύντροφός σας για τη navigation στα λεωφορεία της Θεσσαλονίκης με παρακολούθηση σε πραγματικό χρόνο, offline χάρτες και έξυπνες ειδοποιήσεις">Your smart companion for navigating Thessaloniki's buses with real-time tracking, offline maps, and intelligent notifications</p>
+            
+            <div class="cta-buttons">
+                <a id="download-button" href="#" class="btn-primary">
+                    📱 <span data-en="Download the App" data-el="Κατεβάστε την Εφαρμογή">Download the App</span>
+                </a>
+                <a href="#" onclick="window.open('https://spark-toothbrush-055.notion.site/1840eaf79cfb80ce8bc3ca06d920ff3e?pvs=105', '_blank'); return false;" class="btn-secondary">
+                    🧪 <span data-en="Join Beta Program" data-el="Συμμετοχή στο Beta">Join Beta Program</span>
+                </a>
+                <a href="privacy.html" class="btn-secondary">
+                    🔒 <span data-en="Privacy Policy" data-el="Πολιτική Απορρήτου">Privacy Policy</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator" onclick="document.querySelector('.features').scrollIntoView()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 data-en="Why Choose ThessBus?" data-el="Γιατί να Επιλέξετε το ThessBus;">Why Choose ThessBus?</h2>
+            <p class="features-subtitle" data-en="Experience the future of public transportation with features designed to make your journey seamless and stress-free" data-el="Ζήστε το μέλλον των δημόσιων μεταφορών με χαρακτηριστικά σχεδιασμένα να κάνουν το ταξίδι σας άψογο και χωρίς άγχος">Experience the future of public transportation with features designed to make your journey seamless and stress-free</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🚌</span>
+                    <h3 data-en="Real-Time Bus Tracking" data-el="Παρακολούθηση Λεωφορείων σε Πραγματικό Χρόνο">Real-Time Bus Tracking</h3>
+                    <p data-en="See exactly where your bus is and when it will arrive at your stop. Never wait in uncertainty again with our live tracking system that updates every 15 seconds." data-el="Δείτε ακριβώς πού είναι το λεωφορείο σας και πότε θα φτάσει στη στάση σας. Μην περιμένετε ξανά στην αβεβαιότητα με το σύστημα ζωντανής παρακολούθησης που ενημερώνεται κάθε 15 δευτερόλεπτα.">See exactly where your bus is and when it will arrive at your stop. Never wait in uncertainty again with our live tracking system that updates every 15 seconds.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🗺️</span>
+                    <h3 data-en="Complete Offline Experience" data-el="Πλήρης Offline Εμπειρία">Complete Offline Experience</h3>
+                    <p data-en="Navigate Thessaloniki even without internet connection. Our offline maps and complete route information ensure you're never lost, wherever you are." data-el="Περιηγηθείτε στη Θεσσαλονίκη ακόμα και χωρίς σύνδεση στο internet. Οι offline χάρτες και οι πλήρεις πληροφορίες διαδρομών εξασφαλίζουν ότι δεν θα χαθείτε ποτέ, όπου και αν βρίσκεστε.">Navigate Thessaloniki even without internet connection. Our offline maps and complete route information ensure you're never lost, wherever you are.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🔔</span>
+                    <h3 data-en="Smart Notifications" data-el="Έξυπνες Ειδοποιήσεις">Smart Notifications</h3>
+                    <p data-en="Get alerted before your bus arrives, set custom alarms for your routes, and receive voice announcements for hands-free navigation." data-el="Λάβετε ειδοποιήσεις πριν φτάσει το λεωφορείο σας, ορίστε προσαρμοσμένες ειδοποιήσεις για τις διαδρομές σας και λάβετε φωνητικές ανακοινώσεις για navigation χωρίς χέρια.">Get alerted before your bus arrives, set custom alarms for your routes, and receive voice announcements for hands-free navigation.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">⭐</span>
+                    <h3 data-en="Personalized Favorites" data-el="Προσωπικά Αγαπημένα">Personalized Favorites</h3>
+                    <p data-en="Save your most-used stops and routes for quick access. Customize your experience with favorites that sync across all your devices." data-el="Αποθηκεύστε τις πιο χρησιμοποιούμενες στάσεις και διαδρομές για γρήγορη πρόσβαση. Προσαρμόστε την εμπειρία σας με αγαπημένα που συγχρονίζονται σε όλες τις συσκευές σας.">Save your most-used stops and routes for quick access. Customize your experience with favorites that sync across all your devices.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3 data-en="Intelligent Search" data-el="Έξυπνη Αναζήτηση">Intelligent Search</h3>
+                    <p data-en="Find any bus stop, route, or destination with our smart search that understands Greek and English, making navigation effortless." data-el="Βρείτε οποιαδήποτε στάση λεωφορείου, διαδρομή ή προορισμό με την έξυπνη αναζήτηση που καταλαβαίνει ελληνικά και αγγλικά, κάνοντας την περιήγηση εύκολη.">Find any bus stop, route, or destination with our smart search that understands Greek and English, making navigation effortless.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">⌚</span>
+                    <h3 data-en="Wear OS Support" data-el="Υποστήριξη Wear OS">Wear OS Support</h3>
+                    <p data-en="Access bus information right from your smartwatch. Check arrivals, get notifications, and navigate hands-free with our Wear OS app." data-el="Αποκτήστε πρόσβαση στις πληροφορίες λεωφορείων απευθείας από το smartwatch σας. Ελέγξτε άφιξεις, λάβετε ειδοποιήσεις και περιηγηθείτε χωρίς χέρια με την εφαρμογή Wear OS.">Access bus information right from your smartwatch. Check arrivals, get notifications, and navigate hands-free with our Wear OS app.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section class="download">
+        <div class="container">
+            <h2 data-en="Start Your Smart Commute Today" data-el="Ξεκινήστε το Έξυπνο Ταξίδι σας Σήμερα">Start Your Smart Commute Today</h2>
+            <p class="download-subtitle" data-en="Join thousands of daily users who have transformed their Thessaloniki transportation experience" data-el="Γίνετε μέλος χιλιάδων καθημερινών χρηστών που έχουν μεταμορφώσει την εμπειρία μεταφοράς τους στη Θεσσαλονίκη">Join thousands of daily users who have transformed their Thessaloniki transportation experience</p>
+            
+            <div class="download-buttons">
+                <a id="google-play-btn" href="#" class="download-btn google-play">
+                    <div class="download-btn-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
+                        </svg>
+                    </div>
+                    <div class="download-btn-text">
+                        <span class="download-btn-small" data-en="GET IT ON" data-el="ΚΑΤΕΒΑΣΤΕ ΤΟ ΑΠΟ">GET IT ON</span>
+                        <span class="download-btn-large">Google Play</span>
+                    </div>
+                </a>
+                
+                <a id="app-store-btn" href="#" class="download-btn app-store">
+                    <div class="download-btn-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/>
+                        </svg>
+                    </div>
+                    <div class="download-btn-text">
+                        <span class="download-btn-small" data-en="Download on the" data-el="Κατεβάστε από το">Download on the</span>
+                        <span class="download-btn-large">App Store</span>
+                    </div>
+                </a>
+            </div>
+            
+            <p>
+                <a href="privacy.html" class="privacy-link" data-en="Privacy Policy" data-el="Πολιτική Απορρήτου">Privacy Policy</a>
+            </p>
+            
+            <div id="path-info"></div>
+        </div>
+    </section>
+
+    <script>
+        // --- Configuration ---
+        const androidStoreUrl = "https://play.google.com/store/apps/details?id=gr.thessbus.app";
+        const iosStoreUrl = "https://apps.apple.com/app/idYOUR_APP_STORE_ID"; // <-- REPLACE with your App Store URL
+        // --- End Configuration ---
+
+        // Language toggle functionality
+        let currentLanguage = 'en';
+        
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'en' ? 'el' : 'en';
+            document.getElementById('lang-text').textContent = currentLanguage === 'en' ? 'EL' : 'EN';
+            
+            // Update all elements with data attributes
+            document.querySelectorAll('[data-en][data-el]').forEach(element => {
+                const text = element.getAttribute(`data-${currentLanguage}`);
+                if (text) {
+                    element.textContent = text;
+                }
+            });
+            
+            // Save language preference
+            localStorage.setItem('thessbus-language', currentLanguage);
+        }
+        
+        // Load saved language preference
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedLanguage = localStorage.getItem('thessbus-language');
+            if (savedLanguage && savedLanguage !== currentLanguage) {
+                toggleLanguage();
+            }
+        });
+
+        // Add dynamic theme change detection
+        if (window.matchMedia) {
+            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+            mediaQuery.addEventListener('change', function(e) {
+                const html = document.documentElement;
+                if (e.matches) {
+                    html.style.setProperty('--bg-color', '#0a0a0a');
+                    html.style.setProperty('--bg-secondary', '#1a1a1a');
+                    html.style.setProperty('--text-color', '#ffffff');
+                    html.style.setProperty('--text-secondary', '#a0a0a0');
+                    html.style.setProperty('--accent-color', '#99CCFA');
+                    html.style.setProperty('--accent-hover', '#7AB8F0');
+                    html.style.setProperty('--card-bg', '#151515');
+                    html.style.setProperty('--border-color', '#333333');
+                    html.style.setProperty('--shadow', 'rgba(0, 0, 0, 0.5)');
+                    html.style.setProperty('--feature-bg', '#202020');
+                    html.style.setProperty('--gradient-start', '#0f1419');
+                    html.style.setProperty('--gradient-end', '#1a202c');
+                } else {
+                    html.style.setProperty('--bg-color', '#ffffff');
+                    html.style.setProperty('--bg-secondary', '#f8fafc');
+                    html.style.setProperty('--text-color', '#1e293b');
+                    html.style.setProperty('--text-secondary', '#64748b');
+                    html.style.setProperty('--accent-color', '#1671C5');
+                    html.style.setProperty('--accent-hover', '#1460A8');
+                    html.style.setProperty('--card-bg', '#ffffff');
+                    html.style.setProperty('--border-color', '#e2e8f0');
+                    html.style.setProperty('--shadow', 'rgba(0, 0, 0, 0.1)');
+                    html.style.setProperty('--feature-bg', '#f1f5f9');
+                    html.style.setProperty('--gradient-start', '#1671C5');
+                    html.style.setProperty('--gradient-end', '#1460A8');
+                }
+            });
+        }
+
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        const downloadButton = document.getElementById('download-button');
+        const googlePlayBtn = document.getElementById('google-play-btn');
+        const appStoreBtn = document.getElementById('app-store-btn');
+        const pathInfoDiv = document.getElementById('path-info');
+        const currentPath = window.location.pathname;
+
+        // Display the path (optional, but good for debugging/context)
+        if (currentPath && currentPath !== '/') {
+            pathInfoDiv.textContent = `Attempting to access path: ${currentPath}`;
+        }
+
+        // Set up download buttons
+        googlePlayBtn.href = androidStoreUrl;
+        appStoreBtn.href = iosStoreUrl;
+
+        // OS Detection and Download Link Update
+        if (/android/i.test(userAgent)) {
+            downloadButton.href = androidStoreUrl;
+            downloadButton.innerHTML = '📱 <span data-en="Get it on Google Play" data-el="Κατεβάστε από Google Play">Get it on Google Play</span>';
+            // Hide iOS button on Android
+            appStoreBtn.style.opacity = '0.6';
+            appStoreBtn.style.pointerEvents = 'none';
+        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            downloadButton.href = iosStoreUrl;
+            downloadButton.innerHTML = '🍎 <span data-en="Download on App Store" data-el="Κατεβάστε από App Store">Download on App Store</span>';
+            // Hide Google Play button on iOS
+            googlePlayBtn.style.opacity = '0.6';
+            googlePlayBtn.style.pointerEvents = 'none';
+        } else {
+            // Fallback for desktop or unknown OS
+            downloadButton.innerHTML = '📱 <span data-en="View on App Stores" data-el="Δείτε στα App Stores">View on App Stores</span>';
+            downloadButton.href = "#";
+            downloadButton.onclick = (e) => {
+                e.preventDefault();
+                document.querySelector('.download').scrollIntoView();
+            }
+        }
+
+        // Smooth scroll for scroll indicator
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add intersection observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationDelay = '0s';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe feature cards
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>

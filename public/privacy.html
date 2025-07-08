@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - ThessBus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        // Prevent FOUC by setting theme immediately
+        (function() {
+            const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const html = document.documentElement;
+            if (isDark) {
+                html.style.setProperty('--bg-color', '#1a1a1a');
+                html.style.setProperty('--text-color', '#e0e0e0');
+                html.style.setProperty('--link-color', '#4dabf7');
+                html.style.setProperty('--border-color', '#404040');
+                html.style.setProperty('--code-bg', '#2d2d2d');
+                html.style.setProperty('--button-primary', '#0d6efd');
+                html.style.setProperty('--card-bg', '#252525');
+                html.style.setProperty('--shadow-light', 'rgba(0, 0, 0, 0.3)');
+            } else {
+                html.style.setProperty('--bg-color', '#ffffff');
+                html.style.setProperty('--text-color', '#333333');
+                html.style.setProperty('--link-color', '#007bff');
+                html.style.setProperty('--border-color', '#e0e0e0');
+                html.style.setProperty('--code-bg', '#f8f9fa');
+                html.style.setProperty('--button-primary', '#007bff');
+                html.style.setProperty('--card-bg', '#fafafa');
+                html.style.setProperty('--shadow-light', 'rgba(0, 0, 0, 0.08)');
+            }
+        })();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --link-color: #007bff;
+            --border-color: #e0e0e0;
+            --code-bg: #f8f9fa;
+            --button-primary: #007bff;
+            --button-text: #ffffff;
+            --card-bg: #fafafa;
+            --shadow-light: rgba(0, 0, 0, 0.08);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #1a1a1a !important;
+                --text-color: #e0e0e0 !important;
+                --link-color: #4dabf7 !important;
+                --border-color: #404040 !important;
+                --code-bg: #2d2d2d !important;
+                --button-primary: #0d6efd !important;
+                --button-text: #ffffff !important;
+                --card-bg: #252525 !important;
+                --shadow-light: rgba(0, 0, 0, 0.3) !important;
+            }
+        }
+
+        html {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; 
+            padding: 15px; 
+            max-width: 900px; 
+            margin: 0 auto; 
+            background-color: transparent;
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--button-primary);
+            color: var(--button-text);
+            text-decoration: none;
+            border-radius: 50%;
+            font-size: 18px;
+            font-weight: 500;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 2px 8px var(--shadow-light);
+            margin-bottom: 20px;
+        }
+
+        .back-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        }
+
+        .content-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 4px 16px var(--shadow-light);
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .back-button {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+
+            .content-card {
+                padding: 20px;
+                margin-top: 15px;
+                border-radius: 8px;
+            }
+
+            #markdown-content h1 {
+                font-size: 1.8rem;
+            }
+
+            #markdown-content h2 {
+                font-size: 1.4rem;
+            }
+
+            #markdown-content h3 {
+                font-size: 1.2rem;
+            }
+
+            #markdown-content h4 {
+                font-size: 1.05rem;
+            }
+
+            #markdown-content ul, #markdown-content ol {
+                padding-left: 1.5em;
+            }
+
+            #markdown-content code {
+                font-size: 0.85em;
+                word-break: break-word;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+
+            .content-card {
+                padding: 15px;
+                margin-top: 10px;
+            }
+
+            .back-button {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+        }
+
+        #markdown-content {
+            text-align: left;
+        }
+
+        #markdown-content h1, #markdown-content h2, #markdown-content h3, #markdown-content h4 {
+            color: var(--text-color);
+            margin-top: 1.5em;
+            margin-bottom: 1em;
+            font-weight: 600;
+        }
+
+        #markdown-content h1:first-child {
+            margin-top: 0;
+        }
+
+        #markdown-content h1 {
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            font-size: 2.2rem;
+        }
+
+        #markdown-content h2 {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+            font-size: 1.6rem;
+        }
+
+        #markdown-content h3 {
+            font-size: 1.3rem;
+        }
+
+        #markdown-content h4 {
+            font-size: 1.1rem;
+        }
+
+        #markdown-content p {
+            margin: 1.2em 0;
+            font-size: 1rem;
+        }
+
+        #markdown-content ul, #markdown-content ol {
+            margin: 1.2em 0;
+            padding-left: 2em;
+        }
+
+        #markdown-content li {
+            margin: 0.7em 0;
+            line-height: 1.6;
+        }
+
+        #markdown-content code {
+            background-color: var(--code-bg);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+
+        #markdown-content pre {
+            background-color: var(--code-bg);
+            padding: 1.2em;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5em 0;
+        }
+
+        #markdown-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        #markdown-content a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        #markdown-content a:hover {
+            text-decoration: underline;
+        }
+
+        #markdown-content blockquote {
+            border-left: 4px solid var(--link-color);
+            margin: 1.5em 0;
+            padding-left: 1.2em;
+            color: var(--text-color);
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        #markdown-content hr {
+            border: none;
+            border-top: 2px solid var(--border-color);
+            margin: 2em 0;
+        }
+
+        .loading {
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-card">
+        <a href="/" class="back-button">←</a>
+        
+        <div id="markdown-content" class="loading">
+            # Privacy Policy
+            
+            Loading privacy policy...
+        </div>
+    </div>
+
+    <script>
+        // Markdown content for the privacy policy
+        const privacyPolicyMarkdown = `
+# **Privacy Policy for ThessBus**
+
+**Effective Date:** June 22, 2025
+
+**Last Updated:** June 22, 2025
+
+## **1. Introduction**
+
+Welcome to ThessBus ("we," "our," "us"). We are committed to protecting your privacy and handling your data in an open and transparent manner. This Privacy Policy is designed to help you understand what information we collect, why we collect it, and how you can manage it.
+
+ThessBus is a mobile application for urban transit in Thessaloniki, designed with an offline-first approach to provide essential functionality even without an internet connection. Our primary goal is to offer a reliable and user-friendly service while minimizing data collection to only what is necessary for the app to function and improve.
+
+This policy applies to our Android application ("App").       
+### **2. Information We Collect**
+
+To provide and improve our service, we collect the following types of information. It's important to us that you know this information is handled with care and is primarily used to make your experience better.
+
+#### **a) Information Collected Automatically**
+
+When you use the ThessBus app, we automatically collect certain information for core functionality and analytics:
+
+*   **Location Data (Optional):**
+    *   **Precise Location (GPS and network-based):** With your explicit permission, we access your device's precise location to provide features such as:
+        *   Showing your current position on the map.
+        *   Finding the nearest bus stops.
+        *   Calculating walking directions to a stop or destination.
+    *   **Approximate Location (Network-based):** If you grant only approximate location permission, we use this to find nearby stops, though with less accuracy.
+    *   **Your Control:** Location access is **entirely optional**. The app's core features, like searching for lines and stops, are fully functional without it. You can grant, deny, or revoke this permission at any time in your device's settings. We do not store your location history on our servers.
+
+*   **App Usage and Performance Data (Aggregated & Anonymized):** We use Google's Firebase services to understand how our app is used and to ensure it runs smoothly. This includes:
+    *   **Performance Data (Firebase Performance Monitoring):** We collect data about the app's performance, such as startup time and network request latency. This helps us identify and fix performance issues.
+    *   **App Interactions (Firebase Analytics):** We collect anonymized data on how you interact with the app, such as which features are used most often. This helps us prioritize improvements and new features.
+    *   **Crash Information (Firebase Crashlytics):** If the app crashes, we collect information about the crash, including the device type and OS version, to help us diagnose and fix bugs. This data does not contain personally identifiable information.
+
+#### **b) Information You Provide (Stored Locally)**
+
+Certain data you create is stored **only on your device** to personalize your experience. This data is not transmitted to our servers and is under your control.
+
+*   Favorite stops and lines.
+*   Search history.
+*   App settings and preferences (e.g., theme choice).
+*   Alarms you have set.
+
+#### **c) Information We DO NOT Collect**
+
+We believe in data minimization. We want to be explicit about the data we do not collect:
+*   We **do not collect the Advertising ID**. The permission for this (\`com.google.android.gms.permission.AD_ID\`) is explicitly removed from our app.
+*   We do not collect personal identifiers like your name, email address, or phone number unless you voluntarily provide them when contacting us for support.        
+### **3. How We Use Your Information**
+
+We use the information we collect for the following purposes:
+
+*   **To Provide Core Services:** To display real-time bus information, routes, stops, and your location on the map.
+*   **To Enable App Features:** To allow you to set arrival alarms, receive notifications, and find nearby stops.
+*   **To Improve and Maintain the App:** To understand how users interact with our app, fix crashes, improve performance, and enhance the user experience.
+*   **To Fulfill Your Requests:** To reschedule alarms after your device restarts.        
+### **4. How We Share Your Information**
+
+We do not sell your personal data. We only share information with third parties in the following limited circumstances:
+
+*   **Google (for Analytics and Performance):** We share anonymized and aggregated usage, performance, and crash data with Google's Firebase services. This data is essential for us to maintain and improve the app. You can learn more about how Google handles this data in their [Privacy Policy](https://policies.google.com/privacy).
+*   **OASTH Telematics API:** To provide real-time bus arrival data, the app sends requests to the official OASTH (Thessaloniki Urban Transport Organization) API. These requests contain non-personal data like stop codes or line IDs. We do not send any of your personal data to this API.        
+### **5. Android App Permissions and Their Purpose**
+
+Our \`AndroidManifest.xml\` requests the following permissions to enable specific features:
+
+*   \`INTERNET\` & \`ACCESS_NETWORK_STATE\`: **Required** to fetch real-time bus data from the internet and check for connectivity.
+*   \`ACCESS_FINE_LOCATION\` & \`ACCESS_COARSE_LOCATION\`: **Optional**, requested only to show your location and find nearby stops.
+*   \`POST_NOTIFICATIONS\`: **Optional**, requested to send you notifications for arrival alarms that you have set.
+*   \`FOREGROUND_SERVICE\` & \`FOREGROUND_SERVICE_DATA_SYNC\`: **Required** for features you activate, like monitoring a stop for real-time arrivals or for an active alarm, ensuring they work reliably even when the app is in the background.
+*   \`SCHEDULE_EXACT_ALARM\` & \`USE_FULL_SCREEN_INTENT\`: **Required** for the arrival alarm feature to function precisely and display correctly when it goes off.
+*   \`RECEIVE_BOOT_COMPLETED\`: **Required** to automatically reschedule any active alarms you've set if you restart your device.
+*   \`android.hardware.camera\`: **Optional** and currently not in use. This permission is declared as not required (\`required="false"\`) for potential future features like scanning QR codes for tickets. The camera will never be accessed without you explicitly initiating such a feature.        
+### **6. Data Storage, Security, and Retention**
+
+*   **Data Storage:** Information you generate (like favorites) is stored locally in a secure database on your device. Anonymized analytics data is stored on Google's secure Firebase servers.
+*   **Security:** We take reasonable measures to protect your information, including using HTTPS (TLS) to encrypt all data transmitted between the app and APIs.
+*   **Data Retention:** Data stored on your device remains until you clear the app's data or uninstall the app. Anonymized analytics data is retained according to Google's Firebase data retention policies.        
+### **7. Your Rights and Choices (GDPR)**
+
+As a user in the European Union, you have certain rights under the General Data Protection Regulation (GDPR). You have the right to:
+*   **Manage Permissions:** You can control the app's access to your location and notifications at any time through your device's settings menu.
+*   **Access and Erase Data:** You can delete locally stored data (favorites, history) through the app's settings. For requests regarding data held by our analytics provider, please contact us.        
+### **8. Children's Privacy**
+
+This app is intended for a general audience and is not directed at children under the age of 16. We do not knowingly collect personal information from children. If we become aware that a child has provided us with personal information, we will take steps to delete such information.        ### **9. Changes to This Privacy Policy**
+
+We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date. You are advised to review this Privacy Policy periodically for any changes.        ### **10. Contact Us**
+
+If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us.        **Email:** \`tonygnkpublic@gmail.com\``;
+
+        // ...existing code...
+
+        // Render the markdown content
+        document.addEventListener('DOMContentLoaded', function() {
+            const contentDiv = document.getElementById('markdown-content');
+            
+            // Parse and render the loading message as markdown first
+            const loadingMarkdown = contentDiv.textContent.trim();
+            try {
+                if (typeof marked !== 'undefined') {
+                    contentDiv.innerHTML = marked.parse(loadingMarkdown);
+                } else {
+                    contentDiv.innerHTML = parseBasicMarkdown(loadingMarkdown);
+                }
+            } catch (error) {
+                // Keep original text if parsing fails
+            }
+            
+            // Add dynamic theme change detection
+            if (window.matchMedia) {
+                const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+                mediaQuery.addEventListener('change', function(e) {
+                    const html = document.documentElement;
+                    if (e.matches) {
+                        html.style.setProperty('--bg-color', '#1a1a1a');
+                        html.style.setProperty('--text-color', '#e0e0e0');
+                        html.style.setProperty('--link-color', '#4dabf7');
+                        html.style.setProperty('--border-color', '#404040');
+                        html.style.setProperty('--code-bg', '#2d2d2d');
+                        html.style.setProperty('--button-primary', '#0d6efd');
+                        html.style.setProperty('--card-bg', '#252525');
+                        html.style.setProperty('--shadow-light', 'rgba(0, 0, 0, 0.3)');
+                    } else {
+                        html.style.setProperty('--bg-color', '#ffffff');
+                        html.style.setProperty('--text-color', '#333333');
+                        html.style.setProperty('--link-color', '#007bff');
+                        html.style.setProperty('--border-color', '#e0e0e0');
+                        html.style.setProperty('--code-bg', '#f8f9fa');
+                        html.style.setProperty('--button-primary', '#007bff');
+                        html.style.setProperty('--card-bg', '#fafafa');
+                        html.style.setProperty('--shadow-light', 'rgba(0, 0, 0, 0.08)');
+                    }
+                });
+            }
+            
+            // Function to parse basic markdown if marked.js fails
+            function parseBasicMarkdown(text) {
+                // Split into lines for better processing
+                let lines = text.split('\n');
+                let html = [];
+                let inList = false;
+                
+                for (let i = 0; i < lines.length; i++) {
+                    let line = lines[i].trim();
+                    
+                    // Skip empty lines
+                    if (line === '') {
+                        if (inList) {
+                            html.push('</ul>');
+                            inList = false;
+                        }
+                        html.push('');
+                        continue;
+                    }
+                    
+                    // Headers
+                    if (line.startsWith('#### ')) {
+                        if (inList) {
+                            html.push('</ul>');
+                            inList = false;
+                        }
+                        html.push('<h4>' + formatInlineMarkdown(line.substring(5)) + '</h4>');
+                    } else if (line.startsWith('### ')) {
+                        if (inList) {
+                            html.push('</ul>');
+                            inList = false;
+                        }
+                        html.push('<h3>' + formatInlineMarkdown(line.substring(4)) + '</h3>');
+                    } else if (line.startsWith('## ')) {
+                        if (inList) {
+                            html.push('</ul>');
+                            inList = false;
+                        }
+                        html.push('<h2>' + formatInlineMarkdown(line.substring(3)) + '</h2>');
+                    } else if (line.startsWith('# ')) {
+                        if (inList) {
+                            html.push('</ul>');
+                            inList = false;
+                        }
+                        html.push('<h1>' + formatInlineMarkdown(line.substring(2)) + '</h1>');
+                    }
+                    // Lists
+                    else if (line.startsWith('*   ') || line.startsWith('-   ')) {
+                        if (!inList) {
+                            html.push('<ul>');
+                            inList = true;
+                        }
+                        html.push('<li>' + formatInlineMarkdown(line.substring(4)) + '</li>');
+                    }
+                    // Horizontal rule
+                    else if (line === '---') {
+                        if (inList) {
+                            html.push('</ul>');
+                            inList = false;
+                        }
+                        html.push('<hr>');
+                    }
+                    // Regular paragraphs
+                    else {
+                        if (inList) {
+                            html.push('</ul>');
+                            inList = false;
+                        }
+                        html.push('<p>' + formatInlineMarkdown(line) + '</p>');
+                    }
+                }
+                
+                // Close any remaining list
+                if (inList) {
+                    html.push('</ul>');
+                }
+                
+                return html.join('\n');
+            }
+            
+            // Helper function to format inline markdown elements
+            function formatInlineMarkdown(text) {
+                // First handle bold text (double asterisks)
+                text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                
+                // Then handle italic text (single asterisks, but not part of bold)
+                // Split by <strong> tags to avoid affecting already processed bold text
+                let parts = text.split(/(<strong>.*?<\/strong>)/);
+                for (let i = 0; i < parts.length; i++) {
+                    if (!parts[i].includes('<strong>')) {
+                        // Only process parts that don't contain bold tags
+                        parts[i] = parts[i].replace(/\*([^*]+)\*/g, '<em>$1</em>');
+                    }
+                }
+                text = parts.join('');
+                
+                // Handle links
+                text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+                
+                // Handle code
+                text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+                
+                return text;
+            }
+            
+            // Load the actual privacy policy content
+            setTimeout(() => {
+                try {
+                    // Try using marked.js first
+                    if (typeof marked !== 'undefined') {
+                        contentDiv.innerHTML = marked.parse(privacyPolicyMarkdown);
+                    } else {
+                        // Fallback to basic markdown parser
+                        contentDiv.innerHTML = parseBasicMarkdown(privacyPolicyMarkdown);
+                    }
+                    contentDiv.classList.remove('loading');
+                } catch (error) {
+                    // If both fail, use basic parser as final fallback
+                    try {
+                        contentDiv.innerHTML = parseBasicMarkdown(privacyPolicyMarkdown);
+                        contentDiv.classList.remove('loading');
+                    } catch (fallbackError) {
+                        contentDiv.innerHTML = '<h1>Privacy Policy</h1><p>Error loading privacy policy. Please contact us directly for privacy information.</p>';
+                        console.error('Error parsing markdown:', error, fallbackError);
+                    }
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>
