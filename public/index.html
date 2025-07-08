@@ -547,11 +547,11 @@
             <p class="hero-subtitle" data-en="Your smart companion for navigating Thessaloniki's buses with real-time tracking, offline maps, and intelligent notifications" data-el="Ο έξυπνος σύντροφός σας για τη navigation στα λεωφορεία της Θεσσαλονίκης με παρακολούθηση σε πραγματικό χρόνο, offline χάρτες και έξυπνες ειδοποιήσεις">Your smart companion for navigating Thessaloniki's buses with real-time tracking, offline maps, and intelligent notifications</p>
             
             <div class="cta-buttons">
-                <a id="download-button" href="#" class="btn-primary">
-                    📱 <span data-en="Download the App" data-el="Κατεβάστε την Εφαρμογή">Download the App</span>
-                </a>
-                <a href="#" onclick="window.open('https://spark-toothbrush-055.notion.site/1840eaf79cfb80ce8bc3ca06d920ff3e?pvs=105', '_blank'); return false;" class="btn-secondary">
+                <a href="#" onclick="window.open('https://spark-toothbrush-055.notion.site/1840eaf79cfb80ce8bc3ca06d920ff3e?pvs=105', '_blank'); return false;" class="btn-primary">
                     🧪 <span data-en="Join Beta Program" data-el="Συμμετοχή στο Beta">Join Beta Program</span>
+                </a>
+                <a id="download-button" href="#" class="btn-secondary">
+                    📱 <span data-en="Download the App" data-el="Κατεβάστε την Εφαρμογή">Download the App</span>
                 </a>
                 <a href="privacy.html" class="btn-secondary">
                     🔒 <span data-en="Privacy Policy" data-el="Πολιτική Απορρήτου">Privacy Policy</span>
@@ -631,14 +631,14 @@
                     </div>
                 </a>
                 
-                <a id="app-store-btn" href="#" class="download-btn app-store">
+                <a id="app-store-btn" href="#" class="download-btn app-store" style="opacity: 0.4; pointer-events: none; cursor: not-allowed;">
                     <div class="download-btn-icon">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/>
                         </svg>
                     </div>
                     <div class="download-btn-text">
-                        <span class="download-btn-small" data-en="Download on the" data-el="Κατεβάστε από το">Download on the</span>
+                        <span class="download-btn-small" data-en="Coming Soon" data-el="Έρχεται Σύντομα">Coming Soon</span>
                         <span class="download-btn-large">App Store</span>
                     </div>
                 </a>
@@ -734,18 +734,24 @@
 
         // Set up download buttons
         googlePlayBtn.href = androidStoreUrl;
-        appStoreBtn.href = iosStoreUrl;
+        // App Store button is disabled - iOS support coming soon
+        appStoreBtn.href = "#";
+        appStoreBtn.style.opacity = '0.4';
+        appStoreBtn.style.pointerEvents = 'none';
+        appStoreBtn.style.cursor = 'not-allowed';
 
         // OS Detection and Download Link Update
         if (/android/i.test(userAgent)) {
             downloadButton.href = androidStoreUrl;
             downloadButton.innerHTML = '📱 <span data-en="Get it on Google Play" data-el="Κατεβάστε από Google Play">Get it on Google Play</span>';
-            // Hide iOS button on Android
-            appStoreBtn.style.opacity = '0.6';
-            appStoreBtn.style.pointerEvents = 'none';
+            // Hide iOS button on Android (already disabled)
         } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            downloadButton.href = iosStoreUrl;
-            downloadButton.innerHTML = '🍎 <span data-en="Download on App Store" data-el="Κατεβάστε από App Store">Download on App Store</span>';
+            // Disable download for iOS users since iOS support isn't ready yet
+            downloadButton.href = "#";
+            downloadButton.innerHTML = '🍎 <span data-en="iOS App Coming Soon" data-el="Η εφαρμογή iOS έρχεται σύντομα">iOS App Coming Soon</span>';
+            downloadButton.style.opacity = '0.6';
+            downloadButton.style.pointerEvents = 'none';
+            downloadButton.style.cursor = 'not-allowed';
             // Hide Google Play button on iOS
             googlePlayBtn.style.opacity = '0.6';
             googlePlayBtn.style.pointerEvents = 'none';
